@@ -3,15 +3,15 @@ import path from 'path';
 import config from 'config';
 import { logger } from './logger';
 
-const app = express();
-
 const serverConfig = config.get('server');
 
-app.use(express.static(path.join('./', 'dist')));
+const testrouter = require('./test/router');
 
-app.get('/api', (req, res) => {
-  res.send({data: 'test'});
-})
+const app = express();
+
+app.use(express.static(path.join('./dist')));
+
+app.use('/api/test', testrouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
