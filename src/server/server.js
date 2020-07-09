@@ -1,20 +1,24 @@
 import express from 'express';
-import path from 'path';
 import config from 'config';
 import { logger } from './logger';
 
+const cors = require('cors');
+const path = require('path');
+const bodyParser = require('body-parser');
 const serverConfig = config.get('server');
 
-const testrouter = require('./test/router');
+const userRouter = require('./user/router');
 
 const app = express();
 
+app.use(cors());
+app.use(bodyParser());
 app.use(express.static(path.join('./dist')));
 
-app.use('/api/test', testrouter);
+app.use('/api/user', userRouter);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile('index.html', { root: __dirname });
 })
 
 app.listen(serverConfig.port, () => {
