@@ -28,7 +28,7 @@ export default function Signin() {
   }
   
   const signinfetch = (params) => {
-    fetch('http://localhost:3000/api/user', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: params}).catch((err) => {
+    fetch('http://localhost:3000/api/user/signin', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: params}).catch((err) => {
       console.log(err);
     })
   }

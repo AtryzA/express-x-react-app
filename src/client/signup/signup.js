@@ -29,11 +29,11 @@ export default function Signup() {
       username: username,
       password: password
     }
-    signupfetch(JSON.stringify(params, null, ' '));
+    signupfetch(params);
   }
   
   const signupfetch = (params) => {
-    fetch('http://localhost:3000/api/user', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: params}).catch((err) => {
+    fetch('http://localhost:3000/api/user/signup', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(params)}).catch((err) => {
       console.log(err);
     })
   }
@@ -46,7 +46,7 @@ export default function Signup() {
             variant="outlined"
             margin="normal"
             fullWidth
-            id="userid"
+            id="userID"
             label="UserID"
             name="userID"
             value={userID}
@@ -58,12 +58,12 @@ export default function Signup() {
             variant="outlined"
             margin="normal"
             fullWidth
-            id="userName"
+            id="username"
             label="UserName"
-            name="userName"
+            name="username"
             value={username}
             onChange={handleChange}
-            autoComplete="userName"
+            autoComplete="username"
           />
           <TextField
             variant="outlined"

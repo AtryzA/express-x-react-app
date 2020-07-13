@@ -1,7 +1,7 @@
 module.exports = class User {
-  constructor(userID, userName, password) {
+  constructor(userID, username, password) {
     this.userID = userID;
-    this.userName = userName;
+    this.username = username;
     this.password = password;
   }
 }

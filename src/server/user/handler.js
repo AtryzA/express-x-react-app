@@ -18,4 +18,11 @@ module.exports = class handler {
       res.send(`Get user info ${users}`);
     })
   }
+
+  static signin(req, res) {
+    repository.signin(req.body).then(() => {
+      logger.info('signin');
+      res.send('Signin');
+    })
+  }
 }

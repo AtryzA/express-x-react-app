@@ -1,9 +1,10 @@
 import config from 'config';
+import bcrypt from '../bcrypt';
 
+const { logger } = require('../logger');
 const User = require('./user');
 const MongoClient = require('mongodb').MongoClient;
-const { logger } = require('../logger');
-const dbConfig = config.get('DBserver')
+const dbConfig = config.get('DBserver');
 
 const DBName = dbConfig.Name;
 const DBURL = dbConfig.URL + DBName;
@@ -14,7 +15,7 @@ const OPTION =  {
 
 module.exports = class repository {
   static async addUser(user) {
-    //user.password = bcrypt.hashSync(user.password, 10);
+    user.password = await bcrypt.genHash(user.password);
     const userData = new User(
       user['userID'],
       user['username'],
@@ -54,5 +55,9 @@ module.exports = class repository {
       .deleteOne({'userID': userID});
     client.close();
     return res.result;
+  }
+
+  static async signin(user) {
+    logger.info(user);
   }
 }
