@@ -11,4 +11,4 @@ module.exports = class Bcrypt {
     const hash = await bcrypt.hash(password, salt);
     return hash;
   }
-}
+};

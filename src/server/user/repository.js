@@ -20,10 +20,10 @@ module.exports = class repository {
       user['userID'],
       user['username'],
       user['password']
-    )
+    );
     const client = await MongoClient.connect(DBURL, OPTION).catch((err) => {
       logger.error(err);
-    })
+    });
     const db = client.db(DBName);
     const res = await db
       .collection('users')
@@ -60,4 +60,4 @@ module.exports = class repository {
   static async signin(user) {
     logger.info(user);
   }
-}
+};

@@ -9,5 +9,5 @@ export default function Top() {
         <li><Link to="/signin">Signin</Link></li>
       </ul>
     </div>
-  )
+  );
 }

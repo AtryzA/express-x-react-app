@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Container, Button } from '@material-ui/core'
+import { TextField, Container, Button } from '@material-ui/core';
 
 export default function Signin() {
   const [userID, setUserID] = useState('');
@@ -16,22 +16,22 @@ export default function Signin() {
       default:
         console.log('key not found');
     }
-  }
+  };
   
   const handleSubmit = (event) => {
     event.preventDefault();
     const params = {
       userID: userID,
       password: password
-    }
+    };
     signinfetch(JSON.stringify(params, null, ' '));
-  }
+  };
   
   const signinfetch = (params) => {
     fetch('http://localhost:3000/api/user/signin', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: params}).catch((err) => {
       console.log(err);
-    })
-  }
+    });
+  };
 
   return (
     <div className="Signup">

@@ -16,7 +16,7 @@ const bcrypt = require('./bcrypt');
 
 passport.serializeUser((user, cb) => {
   cb(null, user);
-})
+});
 
 passport.deserializeUser(async (user, cb) => {
   const client = await MongoClient.connect(DBURL, OPTION).catch((err) => {
@@ -31,7 +31,7 @@ passport.deserializeUser(async (user, cb) => {
       cb(err, user);
     });
   client.close();
-})
+});
 
 passport.use(new localStrategy({
   usernameField: 'userID',
@@ -58,7 +58,7 @@ passport.use(new localStrategy({
       return done(null, user);
     });
   client.close();
-}))
+}));
 
 module.exports = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -66,4 +66,4 @@ module.exports = (req, res, next) => {
   } else {
     res.status(204).redirect('/');
   }
-}
+};

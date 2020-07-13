@@ -6,4 +6,4 @@ module.exports = class handler {
     logger.info('handler module');
     service.module();
   }
-}
+};
