@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const serverConfig = config.get('server');
 
-const passport = require('passport');
+const passport = require('./passport');
 const session = require('express-session');
 
 const userRouter = require('./user/router');
@@ -23,7 +23,6 @@ app.use(cookieParser());
 app.use(session({ secret: 'secret-keyword', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-require('./passport');
 
 app.use(express.static(path.join('./dist')));
 

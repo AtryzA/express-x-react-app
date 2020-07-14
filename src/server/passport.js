@@ -14,25 +14,6 @@ const OPTION = {
 
 const bcrypt = require('./bcrypt');
 
-passport.serializeUser((user, cb) => {
-  cb(null, user);
-});
-
-passport.deserializeUser(async (user, cb) => {
-  const client = await MongoClient.connect(DBURL, OPTION).catch((err) => {
-    logger.error(err);
-  });
-  const db = client.db(DBName);
-  const res = await db // eslint-disable-line no-unused-vars
-    .collection('users')
-    .findOne({
-      userID: user.userID
-    }, (err, user) => {
-      cb(err, user);
-    });
-  client.close();
-});
-
 passport.use(new localStrategy({
   usernameField: 'userID',
   passwordField: 'password',
@@ -60,10 +41,23 @@ passport.use(new localStrategy({
   client.close();
 }));
 
-module.exports = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.status(204).redirect('/');
-  }
-};
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser(async (user, cb) => {
+  const client = await MongoClient.connect(DBURL, OPTION).catch((err) => {
+    logger.error(err);
+  });
+  const db = client.db(DBName);
+  const res = await db // eslint-disable-line no-unused-vars
+    .collection('users')
+    .findOne({
+      userID: user.userID
+    }, (err, user) => {
+      cb(err, user);
+    });
+  client.close();
+});
+
+module.exports = passport;
