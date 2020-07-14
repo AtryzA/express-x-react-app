@@ -7,6 +7,7 @@ export default function Top() {
       <ul>
         <li><Link to="/signup">Signup</Link></li>
         <li><Link to="/signin">Signin</Link></li>
+        <li><Link to="/service">Service</Link></li>
       </ul>
     </div>
   );
