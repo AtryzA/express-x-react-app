@@ -18,7 +18,7 @@ passport.use(new localStrategy({
   usernameField: 'userID',
   passwordField: 'password',
   session: false
-},async (userID, password, done) => {
+}, async (userID, password, done) => {
   const client = await MongoClient.connect(DBURL, OPTION).catch((err) => {
     logger.info(err);
   });
@@ -36,9 +36,9 @@ passport.use(new localStrategy({
       if (!isPasswordValid) {
         return done(null, false, { message: 'UserID or Password is wrong.' });
       }
+      client.close();
       return done(null, user);
     });
-  client.close();
 }));
 
 passport.serializeUser((user, cb) => {
@@ -55,9 +55,9 @@ passport.deserializeUser(async (user, cb) => {
     .findOne({
       userID: user.userID
     }, (err, user) => {
+      client.close();
       cb(err, user);
     });
-  client.close();
 });
 
 module.exports = passport;
