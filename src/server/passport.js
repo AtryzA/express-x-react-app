@@ -27,13 +27,16 @@ passport.use(new localStrategy({
     .collection('users')
     .findOne({userID: userID}, async (err, user) => {
       if (err) {
+        client.close();
         return done(err);
       }
       if (!user) {
+        client.close();
         return done(null, false, { message: 'UserID or Password is wrong.' });
       }
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
+        client.close();
         return done(null, false, { message: 'UserID or Password is wrong.' });
       }
       client.close();
